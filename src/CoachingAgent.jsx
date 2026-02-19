@@ -692,14 +692,14 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                     <div className="feedback-section">
                       <div className="section-label">Strengths</div>
                       <ul className="strengths-list">
-                        {result.strengths?.map((s, i) => <li key={i} className="strength-item">‚úì {s}</li>)}
+                        {result.strengths?.map((s, i) => <li key={i} className="strength-item">&#x2713; {s}</li>)}
                       </ul>
                     </div>
 
                     <div className="feedback-section">
                       <div className="section-label">Areas to Improve</div>
                       <ul className="improvements-list">
-                        {result.improvements?.map((s, i) => <li key={i} className="improvement-item">‚Üí {s}</li>)}
+                        {result.improvements?.map((s, i) => <li key={i} className="improvement-item">&#x2192; {s}</li>)}
                       </ul>
                     </div>
                   </>
