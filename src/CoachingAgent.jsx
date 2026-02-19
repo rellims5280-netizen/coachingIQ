@@ -288,7 +288,7 @@ const STYLE = `
     font-family: 'DM Mono', monospace; font-size: 0.78rem; line-height: 1.55;
     color: var(--ink);
   }
-  .track-example::before { content: '💬 '; }
+  .track-example::before { content: 'üí¨ '; }
 
   /* PROGRESS */
   .rep-history { }
@@ -351,7 +351,7 @@ const STYLE = `
     font-family: 'DM Mono', monospace; font-size: 0.78rem; line-height: 1.55;
     color: var(--ink); margin-top: 10px;
   }
-  .roleplay-setup::before { content: '🎭 Setup: '; font-weight: bold; }
+  .roleplay-setup::before { content: 'üé≠ Setup: '; font-weight: bold; }
 
   .focus-chip {
     display: inline-block; padding: 5px 12px; margin: 4px;
@@ -527,7 +527,8 @@ Make strengths specific to the transcript. Make improvements actionable. Suggest
       // Auto-generate next call plan
       generateNextCall(entry);
     } catch (e) {
-      setResult({ error: true });
+      console.error("Analysis error:", e.message);
+      setResult({ error: true, message: e.message });
     }
     setLoading(false);
   }
@@ -634,7 +635,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
             />
             <div className="btn-row">
               <button className="analyze-btn" onClick={analyze} disabled={loading || !transcript.trim()}>
-                {loading ? <><span className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Analyzing...</> : "▶ Analyze Call"}
+                {loading ? <><span className="spinner" style={{ width: 16, height: 16, borderWidth: 2 }} /> Analyzing...</> : "‚ñ∂ Analyze Call"}
               </button>
               <button className="next-call-btn" onClick={() => {
                 setTranscript("");
@@ -645,7 +646,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                 setChatMessages([]);
                 setActiveTab("feedback");
               }} disabled={!result || result.error || loading}>
-                {"📞 Next Call"}
+                {"üìû Next Call"}
               </button>
             </div>
           </div>
@@ -670,11 +671,11 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                   </div>
                 ) : !result ? (
                   <div className="empty-state">
-                    <div className="empty-icon">📋</div>
+                    <div className="empty-icon">üìã</div>
                     <div className="empty-label">Paste a transcript and analyze to get coaching feedback</div>
                   </div>
                 ) : result.error ? (
-                  <div className="empty-state"><div className="empty-label" style={{ color: "var(--accent)" }}>Analysis failed. Please try again.</div></div>
+                  <div className="empty-state"><div className="empty-label" style={{ color: "var(--accent)" }}>Analysis failed: {result.message || "Check console for details."}</div></div>
                 ) : (
                   <>
                     <div className="feedback-section">
@@ -683,7 +684,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                         <div className={`score-circle ${getScoreClass(result.score)}`}>{result.score}</div>
                         <div className="score-details">
                           <div className="score-rep-name">{result.repName}</div>
-                          <div className="score-sub">{result.score >= 80 ? "Strong performance" : result.score >= 60 ? "Good — room to grow" : "Needs focused coaching"} · {result.date}</div>
+                          <div className="score-sub">{result.score >= 80 ? "Strong performance" : result.score >= 60 ? "Good ‚Äî room to grow" : "Needs focused coaching"} ¬∑ {result.date}</div>
                         </div>
                       </div>
                     </div>
@@ -691,14 +692,14 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                     <div className="feedback-section">
                       <div className="section-label">Strengths</div>
                       <ul className="strengths-list">
-                        {result.strengths?.map((s, i) => <li key={i} className="strength-item">✓ {s}</li>)}
+                        {result.strengths?.map((s, i) => <li key={i} className="strength-item">‚úì {s}</li>)}
                       </ul>
                     </div>
 
                     <div className="feedback-section">
                       <div className="section-label">Areas to Improve</div>
                       <ul className="improvements-list">
-                        {result.improvements?.map((s, i) => <li key={i} className="improvement-item">→ {s}</li>)}
+                        {result.improvements?.map((s, i) => <li key={i} className="improvement-item">‚Üí {s}</li>)}
                       </ul>
                     </div>
                   </>
@@ -709,7 +710,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
               {activeTab === "tracks" && (
                 !result || result.error ? (
                   <div className="empty-state">
-                    <div className="empty-icon">💬</div>
+                    <div className="empty-icon">üí¨</div>
                     <div className="empty-label">Analyze a call to see suggested talk tracks</div>
                   </div>
                 ) : (
@@ -735,7 +736,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
               {activeTab === "nextcall" && (
                 (!result || result.error) ? (
                   <div className="empty-state">
-                    <div className="empty-icon">📞</div>
+                    <div className="empty-icon">üìû</div>
                     <div className="empty-label">Analyze a call to generate a next-call prep plan</div>
                   </div>
                 ) : nextCallLoading ? (
@@ -749,8 +750,8 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                   <>
                     <div className="next-call-header">
                       <div>
-                        <div className="next-call-rep">Next Call Prep — {result.repName}</div>
-                        <div className="next-call-sub">Based on call scored {result.score}/100 · {result.date}</div>
+                        <div className="next-call-rep">Next Call Prep ‚Äî {result.repName}</div>
+                        <div className="next-call-sub">Based on call scored {result.score}/100 ¬∑ {result.date}</div>
                       </div>
                       <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
                         <div className="next-call-score-pill">
@@ -807,7 +808,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                     </div>
 
                     <div className="feedback-section">
-                      <div className="section-label">Manager Checklist — Before Next Call</div>
+                      <div className="section-label">Manager Checklist ‚Äî Before Next Call</div>
                       <div className="checklist">
                         {nextCall.managerChecklist?.map((item, i) => {
                           const key = `check-${i}`;
@@ -817,7 +818,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
                               className={`checklist-item${checkedItems[key] ? " checked" : ""}`}
                               onClick={() => setCheckedItems(prev => ({ ...prev, [key]: !prev[key] }))}
                             >
-                              <div className="check-box">{checkedItems[key] ? "✓" : ""}</div>
+                              <div className="check-box">{checkedItems[key] ? "‚úì" : ""}</div>
                               <div className="check-text">{item}</div>
                             </div>
                           );
@@ -832,12 +833,12 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
               {activeTab === "chat" && (
                 !result || result.error ? (
                   <div className="empty-state">
-                    <div className="empty-icon">🤖</div>
+                    <div className="empty-icon">ü§ñ</div>
                     <div className="empty-label">Analyze a call first, then ask follow-up questions</div>
                   </div>
                 ) : (
                   <div className="chat-container">
-                    <div className="chat-notice">Ask anything about this call — "What should I role-play with this rep?" or "Why did they lose the customer?"</div>
+                    <div className="chat-notice">Ask anything about this call ‚Äî "What should I role-play with this rep?" or "Why did they lose the customer?"</div>
                     <div className="chat-messages">
                       {chatMessages.length === 0 && (
                         <div className="msg msg-assistant">
@@ -869,7 +870,7 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
               {activeTab === "progress" && (
                 history.length === 0 ? (
                   <div className="empty-state">
-                    <div className="empty-icon">📈</div>
+                    <div className="empty-icon">üìà</div>
                     <div className="empty-label">Analyze multiple calls to track rep progress</div>
                   </div>
                 ) : (
@@ -917,3 +918,4 @@ Answer the manager's questions helpfully and concisely. Be specific and referenc
     </>
   );
 }
+
